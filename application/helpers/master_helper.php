@@ -29,3 +29,10 @@ function isLogin()
         redirect('auth');
     }
 }
+function getWeb()
+{
+    $ci = get_instance();
+    $ci->db->where('id', 1);
+    $web = $ci->db->get('website')->row_array();
+    return $web;
+}

@@ -5,8 +5,11 @@ class Auth extends CI_Controller
 {
     public function index()
     {
+        if (get_cookie('inventory_cookie')) {
+            redirect('admin/dashboard');
+        }
         if ($this->session->userdata('email')) {
-            redirect('home/dashboard');
+            redirect('admin/dashboard');
         } else {
             return $this->login();
         }
@@ -24,6 +27,7 @@ class Auth extends CI_Controller
             $captcha = $this->input->post('captcha');
             $ip = $this->input->ip_address();
             $cap = $this->Auth_models->verifyCaptcha($captcha, $ip);
+            $a = $this->input->post('remember');
             if ($cap > 0) {
                 $this->db->where('email', $email);
                 $query = $this->db->get('users');
@@ -36,9 +40,21 @@ class Auth extends CI_Controller
                             'email' => $result['email'],
                             'phone' => $result['phone'],
                             'role' => $result['role'],
-                            'nama' => $result['nama']
+                            'nama' => $result['nama'],
+                            'home' => $result['id_home'],
+                            'kantor' => $result['id_kantor'],
                         ];
                         $this->session->set_userdata($sess);
+
+                        if ($a == 'on') {
+                            $cookie = array(
+                                'name'   => 'inventory_cookie',
+                                'value'  => $result['email'],
+                                'expire' => (60 * 60 * 24 * 7),
+                                'secure' => TRUE
+                            );
+                            set_cookie($cookie);
+                        }
                         $this->session->set_flashdata('message', '<div class="alert alert-success mt-2" role="alert">Berhasil login</div>');
                         redirect('welcome');
                     } else {
@@ -143,10 +159,16 @@ class Auth extends CI_Controller
                     'id_home' => $home['id'],
                 ];
                 $this->db->insert('kantor', $dataKantor);
+                $this->db->where('email', $email);
+                $kantor = $this->db->get_where('kantor')->row_array();
 
                 $this->db->set('id_user', $user['id']);
                 $this->db->where('email', $email);
                 $this->db->update('home');
+
+                $this->db->set('id_kantor', $kantor['id']);
+                $this->db->where('email', $email);
+                $this->db->update('users');
                 $this->session->set_flashdata('message', '<div class="alert alert-success mt-2" role="alert">Congratulation. Your Account has been registered.</div>');
                 redirect('auth');
                 // }
@@ -174,6 +196,7 @@ class Auth extends CI_Controller
     }
     public function logout()
     {
+        delete_cookie('inventory_cookie');
         $this->session->sess_destroy();
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">You have been logged out.</div>');
         redirect('auth');

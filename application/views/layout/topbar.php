@@ -122,7 +122,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="logout" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Log Out">
+            <a class="nav-link" href="<?= base_url('auth/logout'); ?>" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Log Out">
                 <i class="fas fa-sign-out-alt"></i>
             </a>
         </li>

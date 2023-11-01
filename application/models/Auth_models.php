@@ -71,34 +71,4 @@ class Auth_models extends CI_Model
         }
         return $count;
     }
-    public function login($email, $password)
-    {
-        $this->db->select('*');
-        $this->db->from('users');
-        $this->db->where('email', $email);
-
-        $query = $this->db->get();
-        $result = $query->row();
-
-        // Anda dapat mengakses hasilnya seperti ini:
-        if ($result) {
-            $password = $result->password;
-            if (password_verify($password, $password)) {
-                $sess = [
-                    'email' => $result->email,
-                    'phone' => $result->phone,
-                    'role_id' => $result->role_id,
-                    'nama' => $result->nama
-                ];
-                $this->session->set_userdata($sess);
-                $data = ['status' => 'Success', 'message' => 'Congratulation.'];
-                return $data;
-            } else {
-                $data = ['status' => 'failed', 'message' => 'password not match.'];
-                return $data;
-            }
-        }
-        $data = ['status' => 'failed', 'message' => 'Email not found.'];
-        return $data;
-    }
 }
