@@ -6,9 +6,8 @@
         </div>
         <div class="card-body">
             <p class="login-box-msg">Sign in to start your session</p>
-            <?= $this->session->flashdata('message'); ?>
-            <?php unset($_SESSION['message']); ?>
-            <form action="<?= base_url('auth/login'); ?>" method="post">
+            <?= $this->session->flash_data('message');  ?>
+            <form action="<?= base_url('su/login'); ?>" method="post">
                 <?php
                 $csrf = array(
                     'name' => $this->security->get_csrf_token_name(),
@@ -17,10 +16,10 @@
                 ?>
                 <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control" name="email" placeholder="Email">
+                    <input type="text" class="form-control" name="user" placeholder="username">
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
+                            <span class="fas fa-user"></span>
                         </div>
                     </div>
                 </div>
@@ -47,12 +46,7 @@
                 <!-- captcha -->
                 <div class="row mt-3">
                     <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" name="remember" id="remember">
-                            <label for="remember">
-                                Remember Me
-                            </label>
-                        </div>
+
                     </div>
                     <!-- /.col -->
                     <div class="col-4">

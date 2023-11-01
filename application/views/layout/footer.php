@@ -15,9 +15,11 @@
   <!-- ./wrapper -->
 
   <!-- jQuery -->
-  <script src="<?= base_url('assets/'); ?>plugins/jquery/jquery.min.js"></script>
+  <!-- <script src="<?= base_url('assets/'); ?>plugins/jquery/jquery.min.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
   <!-- jQuery UI 1.11.4 -->
-  <script src="<?= base_url('assets/'); ?>plugins/jquery-ui/jquery-ui.min.js"></script>
+  <!-- <script src="<?= base_url('assets/'); ?>plugins/jquery-ui/jquery-ui.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
   <script>
       $.widget.bridge('uibutton', $.ui.button)
@@ -45,6 +47,10 @@
   <!-- AdminLTE App -->
   <script src="<?= base_url('assets/'); ?>/js/adminlte.js"></script>
   <script src="<?= base_url('assets/'); ?>/js/pages/dashboard.js"></script>
+  <script>
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+  </script>
   </body>
 
   </html>

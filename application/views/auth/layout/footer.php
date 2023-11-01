@@ -4,6 +4,24 @@
     <script src="<?= base_url('assets/'); ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="<?= base_url('assets/'); ?>js/adminlte.min.js"></script>
+    <script>
+        $('#recaptcha').on('click', () => {
+
+            $.ajax({
+                url: "/lll/auth/recaptcha",
+                crossDomain: "true",
+                type: "GET",
+                data: {},
+                dataType: "JSON",
+                success: function(data) {
+                    console.log(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log("Error adding / update data");
+                },
+            })
+        })
+    </script>
     </body>
 
     </html>

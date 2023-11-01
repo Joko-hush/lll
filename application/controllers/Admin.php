@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Toko extends CI_Controller
+class Admin extends CI_Controller
 {
 
     public function index()
@@ -15,7 +15,7 @@ class Toko extends CI_Controller
         $this->load->view('layout/topbar', $data);
         $this->load->view('layout/sidebar', $data);
         $this->load->view('layout/breadcrum', $data);
-        $this->load->view('toko/home', $data);
+        $this->load->view('admin/home', $data);
         $this->load->view('layout/footer', $data);
     }
 }
